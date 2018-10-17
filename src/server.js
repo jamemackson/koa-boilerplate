@@ -31,6 +31,15 @@ app.use(async (ctx, next) => {
   logger.profile('request');
 });
 
+app.use(async (ctx) => {
+  if (ctx.request.path === '/health-check') {
+    logger.debug('inside health check handler.');
+    ctx.response.body = {
+      healthy: true
+    };
+  }
+});
+
 // authenticate requests past here.
 // app.use(validateJWT());
 
