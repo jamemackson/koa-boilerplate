@@ -1,14 +1,14 @@
 /* global fetch */
 // based on https://github.com/hongymagic/k2 boilerplate
-require('dotenv').load();
-require('isomorphic-fetch');
+require("dotenv").load();
+require("isomorphic-fetch");
 
-import Koa from 'koa';
-import cors from '@koa/cors';
-import  jwt from 'koa-jwt';
-import bodyParser from 'koa-bodyparser';
+import Koa from "koa";
+import cors from "@koa/cors";
+import jwt from "koa-jwt";
+import bodyParser from "koa-bodyparser";
 
-const { logger } = require('./utils/logger');
+const { logger } = require("./utils/logger");
 
 const server = new Koa();
 
@@ -17,15 +17,15 @@ server.use(bodyParser());
 
 server.use(async (ctx, next) => {
   logger.debug(`req: ${ctx.request.origin} ${ctx.request.path}`);
-  logger.debug({ my: 'thing', testing: 123 });
-  logger.profile('request');
+  logger.debug({ my: "thing", testing: 123 });
+  logger.profile("request");
   await next();
-  logger.profile('request');
+  logger.profile("request");
 });
 
-server.use(async (ctx) => {
-  if (ctx.request.path === '/health-check') {
-    logger.info('inside health check handler.');
+server.use(async ctx => {
+  if (ctx.request.path === "/health-check") {
+    logger.info("inside health check handler.");
     ctx.response.body = {
       healthy: true
     };

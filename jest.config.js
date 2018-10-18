@@ -1,10 +1,9 @@
 module.exports = {
-  coverageReporters: [
-    'text-summary',
-    'lcov'
-  ],
-  testEnvironment: 'node',
+  verbose: true,
+  cacheDirectory: "./.jestCache",
+  coverageReporters: ["text-summary", "lcov"],
+  testEnvironment: "node",
   transform: {
-    '^.+\\.js?$': 'babel-jest'
+    "^.+\\.js?$": "babel-jest"
   }
-}
+};

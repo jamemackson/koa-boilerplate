@@ -1,9 +1,9 @@
-require('dotenv').config();
-require('@babel/register')();
-require('@babel/polyfill');
+require("dotenv").config();
+// require('@babel/register')();
+// require('@babel/polyfill');
 
-const { server, logger } = require('../src/server.js');
-const request = require('supertest');
+const { server, logger } = require("../src/server");
+const request = require("supertest");
 
 // close the server after each test
 // afterEach(() => {
