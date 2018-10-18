@@ -3,27 +3,19 @@
 require('dotenv').load();
 require('isomorphic-fetch');
 
-import Koa from 'koa';
+const Koa = require('koa');
+const cors = require('@koa/cors');
+const jwt = require('koa-jwt');
+const bodyParser = require('koa-bodyparser');
 
-import cors from '@koa/cors';
-import jwt from 'koa-jwt';
-import bodyParser from 'koa-bodyparser';
+const { logger } = require('./utils/logger');
 
-import { logger } from './utils/logger';
+const server = new Koa();
 
-// import { log } from './utils/logger';
-// import migrateLegacyImages from './middleware/legacy-image-migrator';
-// import { default as processUploads } from './middleware/process-uploads';
-// import getAsset from './middleware/get-asset';
+server.use(cors({ credentials: true }));
+server.use(bodyParser());
 
-// const log = bunyan.createLogger({ name: 'media', src: true });
-
-const app = new Koa();
-
-app.use(cors({ credentials: true }));
-app.use(bodyParser());
-
-app.use(async (ctx, next) => {
+server.use(async (ctx, next) => {
   logger.debug(`req: ${ctx.request.origin} ${ctx.request.path}`);
   logger.debug({ my: 'thing', testing: 123 });
   logger.profile('request');
@@ -31,9 +23,9 @@ app.use(async (ctx, next) => {
   logger.profile('request');
 });
 
-app.use(async (ctx) => {
+server.use(async (ctx) => {
   if (ctx.request.path === '/health-check') {
-    logger.debug('inside health check handler.');
+    logger.info('inside health check handler.');
     ctx.response.body = {
       healthy: true
     };
@@ -46,7 +38,6 @@ app.use(async (ctx) => {
 // Parse Authorization Header for JWT tokens, and set ctx.state.user if token is
 // valid. Passthrough to middleware to make decisions on whether or not their
 // routes require users. See src/middleware/validate-user.js
-app.use(jwt({ secret: process.env.APP_SECRET, passthrough: true }));
+server.use(jwt({ secret: process.env.APP_SECRET, passthrough: true }));
 
-export { logger };
-export default app;
+module.exports = { server, logger };

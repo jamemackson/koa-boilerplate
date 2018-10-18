@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "test": "jest"
+    "test": "NODE_ENV=test jest"
   },
   "repository": {
     "type": "git",
@@ -31,5 +31,20 @@
     "koa-bodyparser": "^4.2.1",
     "koa-jwt": "^3.5.1",
     "winston": "^3.1.0"
+  },
+  "jest": {
+    "coverageReporters": [
+      "text-summary",
+      "lcov"
+    ],
+    "testEnvironment": "node",
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    }
+  },
+  "devDependencies": {
+    "babel-jest": "^23.6.0",
+    "jest": "^23.6.0",
+    "supertest": "^3.3.0"
   }
 }
