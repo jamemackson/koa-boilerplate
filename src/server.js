@@ -3,10 +3,10 @@
 require('dotenv').load();
 require('isomorphic-fetch');
 
-const Koa = require('koa');
-const cors = require('@koa/cors');
-const jwt = require('koa-jwt');
-const bodyParser = require('koa-bodyparser');
+import Koa from 'koa';
+import cors from '@koa/cors';
+import  jwt from 'koa-jwt';
+import bodyParser from 'koa-bodyparser';
 
 const { logger } = require('./utils/logger');
 
@@ -40,4 +40,4 @@ server.use(async (ctx) => {
 // routes require users. See src/middleware/validate-user.js
 server.use(jwt({ secret: process.env.APP_SECRET, passthrough: true }));
 
-module.exports = { server, logger };
+export { server, logger };

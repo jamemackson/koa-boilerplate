@@ -32,16 +32,6 @@
     "koa-jwt": "^3.5.1",
     "winston": "^3.1.0"
   },
-  "jest": {
-    "coverageReporters": [
-      "text-summary",
-      "lcov"
-    ],
-    "testEnvironment": "node",
-    "transform": {
-      "^.+\\.js$": "babel-jest"
-    }
-  },
   "devDependencies": {
     "babel-jest": "^23.6.0",
     "jest": "^23.6.0",
