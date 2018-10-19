@@ -1,9 +1,8 @@
 require("dotenv").config();
-// require('@babel/register')();
-// require('@babel/polyfill');
+require("@babel/register")();
 
-const { server, logger } = require("../src/server");
-const request = require("supertest");
+import { server, logger } from "../src/server.js";
+import request from "supertest";
 
 // close the server after each test
 // afterEach(() => {
